@@ -23,20 +23,23 @@ def scraper(url=DEMO_URL):
     # execute script to scroll down the page
     driver.execute_script("window.scrollTo(0, document.body.scrollHeight);var lenOfPage=document.body.scrollHeight;return lenOfPage;")
     # sleep for 30s
-    time.sleep(5)
+    time.sleep(10)
 
     # import the page into BeautifulSoup
     soup = BeautifulSoup(driver.page_source, 'html.parser')
-    # find all <text> elements
-    values = soup.findAll('text')
-    # print the relevant data
-    print(values[0].get_text() + ": " + values[1].get_text())
-    print(values[2].get_text() + ": " + values[3].get_text())
-    print(values[4].get_text() + ": " + values[5].get_text())
-
     # quit the driver
     driver.quit()
+    # find all <text> elements
+    values = soup.findAll('text')
+    # build the relevant data set
+    stats = {values[0].get_text(): values[1].get_text(),
+             values[2].get_text(): values[3].get_text(),
+             values[4].get_text(): values[5].get_text()}
+
+    return stats
 
 
 if __name__ == "__main__":
-    scraper()
+    s = scraper()
+    print(s)
+
