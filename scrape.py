@@ -30,7 +30,7 @@ def scraper(url=DEMO_URL):
     # quit the driver
     driver.quit()
     # find all <text> elements
-    values = soup.findAll('text')
+    values = soup.find_all('text')
     # build the relevant data set
     stats = {values[0].get_text(): values[1].get_text(),
              values[2].get_text(): values[3].get_text(),
