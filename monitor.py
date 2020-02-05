@@ -6,7 +6,6 @@ DEBUG = False
 
 
 def main():
-    change = False
     cases = None
     casualties = None
     recoveries = None
@@ -17,9 +16,9 @@ def main():
 
         results = scraper(URL, DEBUG)
         print(results)
-        r_cases = int(results["Total Confirmed"].replace(',', ''))
+        r_cases = results["Total Confirmed"].replace(',', '')
         r_casualties = int(results["Total Deaths"].replace(',', ''))
-        r_recoveries = int(results["Total Recovered"].replace(',', ''))
+        r_recoveries = results["Total Recovered"].replace(',', '')
 
         if cases is None:
             cases = r_cases
@@ -27,32 +26,32 @@ def main():
             recoveries = r_recoveries
 
         if cases != r_cases:
-            if cases > r_cases:
-                diff = sum(r_cases - cases)
+            if cases < r_cases:
+                diff = r_cases - cases
                 cases = r_cases
                 print("Confirmed cases have risen by: {}. Count now stands at: {}".format(diff, cases))
-            elif cases < r_cases:
-                diff = sum(cases - r_cases)
+            elif cases > r_cases:
+                diff = cases - r_cases
                 cases = r_cases
                 print("Confirmed cases have decreased by: {}. Count now stands at: {}".format(diff, cases))
 
         if casualties != r_casualties:
-            if casualties > r_casualties:
-                diff = sum(r_casualties - casualties)
+            if casualties < r_casualties:
+                diff = r_casualties - casualties
                 casualties = r_casualties
                 print("Fatal cases have risen by: {}. Count now stands at: {}".format(diff, casualties))
-            elif casualties < r_casualties:
-                diff = sum(casualties - r_casualties)
+            elif casualties > r_casualties:
+                diff = casualties - r_casualties
                 casualties = r_casualties
                 print("Fatal cases have decreased by: {}. Count now stands at: {}".format(diff, casualties))
 
         if recoveries != r_recoveries:
-            if recoveries > r_recoveries:
-                diff = sum(r_recoveries - recoveries)
+            if recoveries < r_recoveries:
+                diff = r_recoveries - recoveries
                 recoveries = r_recoveries
                 print("Recovery cases have risen by: {}. Count now stands at: {}".format(diff, recoveries))
             if recoveries > r_recoveries:
-                diff = sum(recoveries - r_recoveries)
+                diff = recoveries - r_recoveries
                 recoveries = r_recoveries
                 print("Recovery cases have decreased by: {}. Count now stands at: {}".format(diff, recoveries))
 
