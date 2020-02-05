@@ -35,9 +35,9 @@ def main():
 
         results = scraper(URL, DEBUG)
         logger.info(results)
-        r_cases = results["Total Confirmed"].replace(',', '')
+        r_cases = int(results["Total Confirmed"].replace(',', ''))
         r_casualties = int(results["Total Deaths"].replace(',', ''))
-        r_recoveries = results["Total Recovered"].replace(',', '')
+        r_recoveries = int(results["Total Recovered"].replace(',', ''))
 
         if cases is None:
             cases = r_cases
