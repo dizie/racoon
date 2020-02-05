@@ -7,12 +7,13 @@ import warnings
 DEMO_URL = 'https://gisanddata.maps.arcgis.com/apps/opsdashboard/index.html#/85320e2ea5424dfaaa75ae62e5c06e61'
 
 
-def scraper(url=DEMO_URL):
+def scraper(url=DEMO_URL, DEBUG=False):
     # Ignore warnings about PhantomJS depreciation
     warnings.filterwarnings('ignore')
 
     # specify the url
-    print(url)
+    if DEBUG is True:
+        print(url)
     # run firefox webdriver from executable path of your choice
     # driver = webdriver.Firefox()
     # Run PhantomJS headless browser
