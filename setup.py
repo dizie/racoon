@@ -16,6 +16,18 @@ PJS_LIN64 = 'https://bitbucket.org/ariya/phantomjs/downloads/phantomjs-2.1.1-lin
 def main():
     os = platform.system()
     is_64bit = sys.maxsize > 2**32
+    if os == 'Darwin':
+        print("{}\n{}".format(GD_MAC, PJS_MAC))
+    elif os == 'Linux':
+        if is_64bit is True:
+            print("{}\n{}".format(GD_LIN64, PJS_LIN64))
+        else:
+            print("{}\n{}".format(GD_LIN32, PJS_LIN32))
+    else:
+        if is_64bit is True:
+            print("{}\n{}".format(GD_WIN64, PJS_WIN))
+        else:
+            print("{}\n{}".format(GD_WIN32, PJS_WIN))
 
 
 if __name__ == "__main__":
