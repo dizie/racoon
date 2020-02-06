@@ -19,25 +19,29 @@ def scraper(url=DEMO_URL, DEBUG=False):
     # Run PhantomJS headless browser
     driver = webdriver.PhantomJS()
 
-    # get web page
-    driver.get(url)
-    # execute script to scroll down the page
-    driver.execute_script("window.scrollTo(0, document.body.scrollHeight);var lenOfPage=document.body.scrollHeight;return lenOfPage;")
-    # sleep for 30s
-    time.sleep(10)
+    try:
+        # get web page
+        driver.get(url)
+        # execute script to scroll down the page
+        driver.execute_script("window.scrollTo(0, document.body.scrollHeight);var lenOfPage=document.body.scrollHeight;return lenOfPage;")
+        # sleep for 30s
+        time.sleep(10)
 
-    # import the page into BeautifulSoup
-    soup = BeautifulSoup(driver.page_source, 'html.parser')
-    # quit the driver
-    driver.quit()
-    # find all <text> elements
-    values = soup.find_all('text')
-    # build the relevant data set
-    stats = {values[0].get_text(): values[1].get_text(),
-             values[2].get_text(): values[3].get_text(),
-             values[4].get_text(): values[5].get_text()}
+        # import the page into BeautifulSoup
+        soup = BeautifulSoup(driver.page_source, 'html.parser')
+        # quit the driver
+        driver.quit()
+        # find all <text> elements
+        values = soup.find_all('text')
+        # build the relevant data set
+        stats = {values[0].get_text(): values[1].get_text(),
+                 values[2].get_text(): values[3].get_text(),
+                 values[4].get_text(): values[5].get_text()}
 
-    return stats
+        return stats
+
+    except IndexError:
+        return "Failed to retrieve stats from {}".format(url)
 
 
 if __name__ == "__main__":
