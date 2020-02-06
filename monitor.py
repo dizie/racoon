@@ -4,7 +4,7 @@ import logging
 
 URL = 'https://gisanddata.maps.arcgis.com/apps/opsdashboard/index.html#/85320e2ea5424dfaaa75ae62e5c06e61'
 DEBUG = False
-WAIT_TIME = 60
+WAIT_TIME = 44
 
 LOG_LEVEL = logging.INFO
 
