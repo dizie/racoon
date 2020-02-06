@@ -35,7 +35,6 @@ def main():
             print("Going for another run")
 
         results = scraper(URL, DEBUG)
-        logger.info(results)
         if results is False:
             logger.error("An error occurred retrieving stats from {}. Trying again in {}".format(URL, WAIT_TIME))
         else:
@@ -43,6 +42,11 @@ def main():
                 r_cases = int(results["Total Confirmed"].replace(',', ''))
                 r_casualties = int(results["Total Deaths"].replace(',', ''))
                 r_recoveries = int(results["Total Recovered"].replace(',', ''))
+
+                results["Fatality Rate"] = "{0:.2f}%".format(r_casualties / r_cases * 100, 2)
+                results["Recovery Rate"] = "{0:.2f}%".format(r_recoveries / r_cases * 100, 2)
+
+                logger.info(results)
 
                 if cases is None:
                     cases = r_cases
