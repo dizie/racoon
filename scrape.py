@@ -41,7 +41,7 @@ def scraper(url=DEMO_URL, DEBUG=False):
         return stats
 
     except IndexError:
-        return "Failed to retrieve stats from {}".format(url)
+        return False
 
 
 if __name__ == "__main__":
