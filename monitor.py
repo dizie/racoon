@@ -43,8 +43,11 @@ def main():
                 r_casualties = int(results["Total Deaths"].replace(',', ''))
                 r_recoveries = int(results["Total Recovered"].replace(',', ''))
 
-                results["Fatality Rate"] = "{0:.2f}%".format(r_casualties / r_cases * 100, 2)
-                results["Recovery Rate"] = "{0:.2f}%".format(r_recoveries / r_cases * 100, 2)
+                fatal_rate = "{0:.2f}%".format(r_casualties / r_cases * 100, 2)
+                recover_rate = "{0:.2f}%".format(r_recoveries / r_cases * 100, 2)
+
+                results["Fatality Rate"] = fatal_rate
+                results["Recovery Rate"] = recover_rate
 
                 logger.info(results)
 
@@ -67,21 +70,21 @@ def main():
                     if casualties < r_casualties:
                         diff = r_casualties - casualties
                         casualties = r_casualties
-                        logger.info("Fatal cases have risen by: {}. Count now stands at: {}".format(diff, casualties))
+                        logger.info("Fatal cases have risen by: {}. Count now stands at: {}. Rate: {}".format(diff, casualties, fatal_rate))
                     elif casualties > r_casualties:
                         diff = casualties - r_casualties
                         casualties = r_casualties
-                        logger.info("Fatal cases have decreased by: {}. Count now stands at: {}".format(diff, casualties))
+                        logger.info("Fatal cases have decreased by: {}. Count now stands at: {}. Rate: {}".format(diff, casualties,fatal_rate))
 
                 if recoveries != r_recoveries:
                     if recoveries < r_recoveries:
                         diff = r_recoveries - recoveries
                         recoveries = r_recoveries
-                        logger.info("Recovery cases have risen by: {}. Count now stands at: {}".format(diff, recoveries))
+                        logger.info("Recovery cases have risen by: {}. Count now stands at: {}. Rate: {}".format(diff, recoveries, recover_rate))
                     if recoveries > r_recoveries:
                         diff = recoveries - r_recoveries
                         recoveries = r_recoveries
-                        logger.info("Recovery cases have decreased by: {}. Count now stands at: {}".format(diff, recoveries))
+                        logger.info("Recovery cases have decreased by: {}. Count now stands at: {}. Rate: {}".format(diff, recoveries, recover_rate))
             except KeyError:
                 logger.error("Key error in data. Trying again in {}. Data: {}".format(WAIT_TIME, results))
                 pass
