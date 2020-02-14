@@ -45,7 +45,9 @@ def main():
 
                 fatal_rate = "{0:.2f}%".format(r_casualties / r_cases * 100, 2)
                 recover_rate = "{0:.2f}%".format(r_recoveries / r_cases * 100, 2)
+                active_cases = str(r_cases - r_casualties - r_recoveries)
 
+                results["Active Cases"] = active_cases
                 results["Fatality Rate"] = fatal_rate
                 results["Recovery Rate"] = recover_rate
 
