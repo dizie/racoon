@@ -43,13 +43,27 @@ def main():
                 r_casualties = int(results["Total Deaths"].replace(',', ''))
                 r_recoveries = int(results["Total Recovered"].replace(',', ''))
 
-                fatal_rate = "{0:.2f}%".format(r_casualties / r_cases * 100, 2)
-                recover_rate = "{0:.2f}%".format(r_recoveries / r_cases * 100, 2)
-                active_cases = f'{r_cases - r_casualties - r_recoveries:,}'
+                clean_fatal_rate = r_casualties / r_cases * 100
+                fatal_rate = "{0:.2f}%".format(clean_fatal_rate, 2)
+                clean_recov_rate = r_recoveries / r_cases * 100
+                recover_rate = "{0:.2f}%".format(clean_recov_rate, 2)
+                clean_active_cases = r_cases - r_casualties - r_recoveries
+                active_rate = "{0:.2f}%".format(clean_active_cases / r_cases * 100, 2)
+                active_cases = f'{clean_active_cases:,}'
+                clean_closed_cases = r_cases - clean_active_cases
+                closed_rate = "{0:.2f}%".format(clean_closed_cases / r_cases * 100, 2)
+                closed_cases = f'{clean_closed_cases:,}'
+                closed_fatal_rate = "{0:.2f}%".format(r_casualties / clean_closed_cases * 100, 2)
+                closed_recov_rate = "{0:.2f}%".format(r_recoveries / clean_closed_cases * 100, 2)
 
-                results["Active Cases"] = active_cases
                 results["Fatality Rate"] = fatal_rate
-                results["Recovery Rate"] = recover_rate
+                results["Recovered Rate"] = recover_rate
+                results["Active Cases"] = active_cases
+                results["Active Cases %"] = active_rate
+                results["Closed Cases"] = closed_cases
+                results["Closed Cases %"] = closed_rate
+                results["Closed Fatality Rate"] = closed_fatal_rate
+                results["Closed Recovered Rate"] = closed_recov_rate
 
                 logger.info(results)
 
