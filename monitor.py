@@ -1,8 +1,9 @@
-from scrape import scraper
+from scrape2 import scraper
 import time
 import logging
 
-URL = 'https://gisanddata.maps.arcgis.com/apps/opsdashboard/index.html#/85320e2ea5424dfaaa75ae62e5c06e61'
+# URL = 'https://gisanddata.maps.arcgis.com/apps/opsdashboard/index.html#/85320e2ea5424dfaaa75ae62e5c06e61'
+URL = 'https://www.worldometers.info/coronavirus/'
 DEBUG = False
 WAIT_TIME = 44
 
@@ -39,9 +40,10 @@ def main():
             logger.error("An error occurred retrieving stats from {}. Trying again in {}".format(URL, WAIT_TIME))
         else:
             try:
-                r_cases = int(results["Total Confirmed"].replace(',', ''))
-                r_casualties = int(results["Total Deaths"].replace(',', ''))
-                r_recoveries = int(results["Total Recovered"].replace(',', ''))
+                r_keys = list(results.keys())
+                r_cases = int(results[r_keys[0]].replace(',', ''))
+                r_casualties = int(results[r_keys[1]].replace(',', ''))
+                r_recoveries = int(results[r_keys[2]].replace(',', ''))
 
                 clean_fatal_rate = r_casualties / r_cases * 100
                 fatal_rate = "{0:.2f}%".format(clean_fatal_rate, 2)
