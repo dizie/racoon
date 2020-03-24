@@ -1,11 +1,12 @@
-from scrape2 import scraper
+from scrape2 import scraper, world_pop
 import time
 import logging
 
 # URL = 'https://gisanddata.maps.arcgis.com/apps/opsdashboard/index.html#/85320e2ea5424dfaaa75ae62e5c06e61'
 URL = 'https://www.worldometers.info/coronavirus/'
+WP_URL = 'https://www.worldometers.info/world-population/'
 DEBUG = False
-WAIT_TIME = 44
+WAIT_TIME = 27
 
 LOG_LEVEL = logging.INFO
 
@@ -35,6 +36,7 @@ def main():
         if DEBUG is True:
             print("Going for another run")
 
+        wp = (world_pop(WP_URL, DEBUG))
         results = scraper(URL, DEBUG)
         if results is False:
             logger.error("An error occurred retrieving stats from {}. Trying again in {}".format(URL, WAIT_TIME))
@@ -58,6 +60,8 @@ def main():
                 closed_fatal_rate = "{0:.2f}%".format(r_casualties / clean_closed_cases * 100, 2)
                 closed_recov_rate = "{0:.2f}%".format(r_recoveries / clean_closed_cases * 100, 2)
 
+
+
                 results["Fatality Rate"] = fatal_rate
                 results["Recovered Rate"] = recover_rate
                 results["Active Cases"] = active_cases
@@ -66,6 +70,16 @@ def main():
                 results["Closed Cases %"] = closed_rate
                 results["Closed Fatality Rate"] = closed_fatal_rate
                 results["Closed Recovered Rate"] = closed_recov_rate
+
+                results.update(wp)
+
+                wp_keys = list(wp.keys())
+                wp_count = int(wp[wp_keys[0]].replace(',', ''))
+
+                clean_infect_rate = r_cases / wp_count * 100
+                infect_rate = "{0:.2f}%".format(clean_infect_rate, 2)
+
+                results["Total Population Infected"] = infect_rate
 
                 logger.info(results)
 
