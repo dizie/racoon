@@ -104,10 +104,7 @@ def country_url(country, metric):
     if metric == "population":
         return "https://www.worldometers.info/world-population/{}-population/".format(country)
     else:
-        if country == "new-zealand":
-            return "not-supported"
-        else:
-            return "https://www.worldometers.info/coronavirus/country/{}".format(country)
+       return "https://www.worldometers.info/coronavirus/country/{}".format(country)
 
 
 def country_pop(country, DEBUG=True):
@@ -160,7 +157,7 @@ def country_pop(country, DEBUG=True):
 def country_stat(country, DEBUG=True):
     url = country_url(country, "infected")
     if url == "not-supported":
-        stats = {"place-holder": "552"}
+        stats = {"place-holder": "708"}
         return stats
     # specify the url
     if DEBUG is True:
