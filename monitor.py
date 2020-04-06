@@ -118,7 +118,10 @@ def main():
                         recoveries = r_recoveries
                         logger.info("Recovery cases have decreased by: {}. Count now stands at: {}. Rate: {}".format(diff, recoveries, recover_rate))
             except KeyError:
-                logger.error("Key error in data. Trying again in {}. Data: {}".format(WAIT_TIME, results))
+                logger.error("KeyError in data. Trying again in {}. Data: {}".format(WAIT_TIME, results))
+                pass
+            except ValueError:
+                logger.error("ValueError in data. Trying again in {}. Data: {}".format(WAIT_TIME, wp))
                 pass
 
         time.sleep(WAIT_TIME)
