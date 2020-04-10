@@ -1,4 +1,4 @@
-from scrape2 import country_data
+from scrape import country_data
 
 DEBUG = False
 
