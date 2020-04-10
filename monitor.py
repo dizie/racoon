@@ -1,4 +1,4 @@
-from scrape2 import scraper, world_pop
+from scrape import scraper, world_pop
 import time
 import logging
 
@@ -59,8 +59,6 @@ def main():
                 closed_cases = f'{clean_closed_cases:,}'
                 closed_fatal_rate = "{0:.2f}%".format(r_casualties / clean_closed_cases * 100, 2)
                 closed_recov_rate = "{0:.2f}%".format(r_recoveries / clean_closed_cases * 100, 2)
-
-
 
                 results["Fatality Rate"] = fatal_rate
                 results["Recovered Rate"] = recover_rate
